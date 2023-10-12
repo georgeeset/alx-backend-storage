@@ -1,5 +1,4 @@
 ## 0x00-MySQL_Advanced
----
 
 At the end of this project, I am expected to be able to explain to anyone:
 
