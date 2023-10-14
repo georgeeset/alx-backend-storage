@@ -1,10 +1,14 @@
--- compute average score
+-- Creates a stored procedure ComputeAverageScoreForUser
+-- that computes and stores the average score for a student
 
-SELECT * FROM users;
-SELECT * FROM corrections;
-
-SELECT "--";
-CALL ComputeAverageScoreForUser((SELECT id FROM users WHERE name = "Jeanne"));
-
-SELECT "--";
-SELECT * FROM users;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS ComputeAverageScoreForUser;
+CREATE PROCEDURE ComputeAverageScoreForUser(IN `user_id` INT)
+BEGIN 
+    UPDATE users
+    SET average_score = (SELECT AVG(score)
+                        FROM corrections
+                        WHERE corrections.user_id = user_id)
+    WHERE id = user_id;
+END $$
+DELIMITER ;$$
