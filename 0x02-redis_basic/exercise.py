@@ -51,8 +51,8 @@ class Cache:
         using the random key and return the key
         """
         key = str(uuid4())
-        self._redis.mset({key: data})
-        return key
+        response = self._redis.mset({key: data})
+        return key if response else None
 
     def get(self,
             key: str,
@@ -71,4 +71,3 @@ class Cache:
     def get_int(self, key_data: str) -> int:
         """ get an int """
         return self.get(key_data, int)
-    
